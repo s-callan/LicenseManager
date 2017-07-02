@@ -33,7 +33,7 @@ router.get('/clients', function (req, res, next) {
 
 // create new client
 router.post('/clients', function (req, res) {
-    if (undefined == req.body.client_id || undefined == req.body.name) {
+    if (typeof req.body.client_id === 'undefined' || typeof req.body.name === 'undefined') {
 
     }
     else {
@@ -57,7 +57,7 @@ router.get('/clients/:id', function (req, res, next) {
     var id = req.params.id.substring(2);
     db.all('select client_id, name, description from client_info where client_id = ?', id, function (err, rows) {
         var result = {};
-        if (undefined == row) {
+        if (typeof row === 'undefined') {
             result = {
                 id: row.client_id,
                 name: row.name,
@@ -83,7 +83,7 @@ router.get('/licenses/:id', function (req, res, next) {
     var type = req.params.id.substring(0, 1);
     var id;
 
-    if (type == 'c') {
+    if (type === 'c') {
         id = req.params.id;
         db.all('select license_id, name, description, client_id, start_date, end_date from license_info where client_id = ?', id, function (err, rows) {
             var results = [];
@@ -102,7 +102,7 @@ router.get('/licenses/:id', function (req, res, next) {
             db.close();
         });
     }
-    else if (type == 'l') {
+    else if (type === 'l') {
         id = req.params.id;
         db.all('select name, value from license_data where license_id = ?', id, function (err, rows) {
             var data = {};
@@ -111,10 +111,10 @@ router.get('/licenses/:id', function (req, res, next) {
             }
             var results = {};
             for (var section in fields) {
-                results[section] = {}
+                results[section] = {};
                 for (var field in fields[section]) {
-                    var name = fields[section][field].name
-                    results[section][name] = {}
+                    var name = fields[section][field].name;
+                    results[section][name] = {};
                     results[section][name].value = data[name] || fields[section][field].default;
                     results[section][name].label = fields[section][field].label;
                     results[section][name].comment = fields[section][field].comment;
