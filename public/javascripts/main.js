@@ -71,7 +71,15 @@ select_license = function (button) {
                     } else if (row.type == "int") {
                         html += "<input type='number' value ='" + row.value + "' min='1' max='2147483647'>"
                     } else if (row.type == "date") {
-                        html += "<input type='date'>"
+                        html += "<input type='date' value ='" + row.value + "'>"
+                    } else if (row.type.startsWith("enum(")) {
+                        var values = row.type.slice(5, -1);
+                        values = values.split(",");
+                        html += "<select>";
+                        for (var v in values) {
+                            html += "<option value='" + values[v] + "'>" + values[v] + "</option>";
+                        }
+                        html += "</select>";
                     } else {
                         html += "<input type='text' value ='" + row.value + "'>"
                     }

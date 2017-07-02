@@ -87,7 +87,7 @@
     {
       "name": "SystemLevel",
       "label": "System level",
-      "type": "enum(bronze, silver, gold)",
+      "type": "enum(bronze,silver,gold)",
       "comment": "The level of the system. bronze, silver, gold.",
       "default": "gold"
     },
