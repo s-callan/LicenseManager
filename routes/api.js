@@ -117,7 +117,7 @@ router.get('/licenses/:id', function (req, res, next) {
                     results[section][name] = {}
                     results[section][name].value = data[name] || fields[section][field].default;
                     results[section][name].label = fields[section][field].label;
-                    results[section][name].description = fields[section][field].description;
+                    results[section][name].comment = fields[section][field].comment;
                     results[section][name].type = fields[section][field].type;
                 }
             }

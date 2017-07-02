@@ -51,9 +51,9 @@
     },
     {
       "name": "ManualConnect",
-      "label": "Allow Manual connect",
+      "label": "Manual connect",
       "type": "bool",
-      "comment": "Can the use do manual connects.",
+      "comment": "Can the user do manual connects.",
       "default": "true"
     },
     {

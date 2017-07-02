@@ -58,16 +58,19 @@ select_license = function (button) {
             var data = JSON.parse(this.responseText);
             for (section in data) {
                 var html = "";
-                html += "<table><tr><th align=left'>Name</th><th align=left'>Value</th></tr>";
+                html += "<table><tr><th align=left'>Name</th><th align=left'>Value</th><th></th></tr>";
                 for (var item in data[section]) {
                     var row = data[section][item]
-                    html += "<tr><td>" + row.label + "</td>";
+                    html += "<tr>";
+                    html += "<td>" + row.label + "</td>";
+
                     html += "<td>";
                     if (row.type == "bool") {
+                        var checked = "";
                         if (row.value == 'true') {
-                            html += "<input type='checkbox' checked>"
-                        } else
-                            html += "<input type='checkbox'>"
+                            checked = " checked";
+                        }
+                        html += "<input type='checkbox'" + checked + ">"
                     } else if (row.type == "int") {
                         html += "<input type='number' value ='" + row.value + "' min='1' max='2147483647'>"
                     } else if (row.type == "date") {
@@ -77,13 +80,20 @@ select_license = function (button) {
                         values = values.split(",");
                         html += "<select>";
                         for (var v in values) {
-                            html += "<option value='" + values[v] + "'>" + values[v] + "</option>";
+                            var selected = "";
+                            if (values[v] == row.value)
+                                selected = " selected";
+                            html += "<option value='" + values[v] + "'" + selected + ">" + values[v] + "</option>";
                         }
                         html += "</select>";
                     } else {
                         html += "<input type='text' value ='" + row.value + "'>"
                     }
-                    html += "</td></tr>"
+                    html += "</td>";
+
+                    html += "<td>" + row.comment + "</td>";
+
+                    html += "</tr>";
                 }
                 html += "</table>"
                 document.getElementById(section).innerHTML = html;
