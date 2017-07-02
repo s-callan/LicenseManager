@@ -1,8 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
+
+var fs = require('fs');
+var fields = JSON.parse(fs.readFileSync('fields.json', 'utf8'));
+
 //===============================================================================
 // clients
+
 
 // Return list of all clients
 router.get('/clients', function (req, res, next) {
@@ -75,10 +80,10 @@ router.get('/licenses/:id', function (req, res, next) {
 
     var sqlite3 = require('sqlite3').verbose();
     var db = new sqlite3.Database('mydb.db');
-    var type = req.params.id.substring(0,1);
+    var type = req.params.id.substring(0, 1);
     var id;
 
-    if(type == 'c') {
+    if (type == 'c') {
         id = req.params.id;
         db.all('select license_id, name, description, client_id, start_date, end_date from license_info where client_id = ?', id, function (err, rows) {
             var results = [];
@@ -97,22 +102,27 @@ router.get('/licenses/:id', function (req, res, next) {
             db.close();
         });
     }
-    else if(type == 'l') {
-        id = req.params.id.substring(2);
-        db.all('select license_id, name, description, client_id from license_info where license_id = ?', id, function (err, rows) {
-            var results = [];
+    else if (type == 'l') {
+        id = req.params.id;
+        db.all('select name, value from license_data where license_id = ?', id, function (err, rows) {
+            var data = {};
             for (var index = 0; index < rows.length; ++index) {
-                var data = rows[index];
-                var row = {
-                    id: 'l_' + data.license_id,
-                    name: data.name,
-                    description: data.description,
-                    start_date: data.start_date,
-                    end_date: data.end_date
-                };
-                results.push(row)
+                data[rows[index].name] = rows[index].value;
+            }
+            var results = {};
+            for (var section in fields) {
+                results[section] = {}
+                for (var field in fields[section]) {
+                    var name = fields[section][field].name
+                    results[section][name] = {}
+                    results[section][name].value = data[name] || fields[section][field].default;
+                    results[section][name].label = fields[section][field].label;
+                    results[section][name].description = fields[section][field].description;
+                    results[section][name].type = fields[section][field].type;
+                }
             }
             res.send(JSON.stringify(results));
+
             db.close();
         });
 

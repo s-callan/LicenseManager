@@ -56,28 +56,30 @@ select_license = function (button) {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var data = JSON.parse(this.responseText);
-            var html = "";
-            html += "<table><tr><th align=left'>Name</th><th align=left'>Value</th></tr>";
-            for (var item in data["system"]) {
-                var row = data["system"][item]
-                html += "<tr><td>" + row.label + "</td>";
-                html += "<td>";
-                if (row.type == "bool") {
-                    if (row.value == 'true') {
-                        html += "<input type='checkbox' checked>"
-                    } else
-                        html += "<input type='checkbox'>"
-                } else if (row.type == "int") {
-                    html += "<input type='number' value ='" + row.value + " min='1' max='2147483645'>"
-                } else if (row.type == "date") {
-                    html += "<input type='date'>"
-                } else {
-                    html += "<input type='text' value ='" + row.value + "'>"
+            for (section in data) {
+                var html = "";
+                html += "<table><tr><th align=left'>Name</th><th align=left'>Value</th></tr>";
+                for (var item in data[section]) {
+                    var row = data[section][item]
+                    html += "<tr><td>" + row.label + "</td>";
+                    html += "<td>";
+                    if (row.type == "bool") {
+                        if (row.value == 'true') {
+                            html += "<input type='checkbox' checked>"
+                        } else
+                            html += "<input type='checkbox'>"
+                    } else if (row.type == "int") {
+                        html += "<input type='number' value ='" + row.value + "' min='1' max='2147483647'>"
+                    } else if (row.type == "date") {
+                        html += "<input type='date'>"
+                    } else {
+                        html += "<input type='text' value ='" + row.value + "'>"
+                    }
+                    html += "</td></tr>"
                 }
-                html += "</td></tr>"
+                html += "</table>"
+                document.getElementById(section).innerHTML = html;
             }
-            html += "</table>"
-            document.getElementById("details").innerHTML = html;
         }
     };
     xhttp.open("GET", "/api/licenses/" + license_id, true);

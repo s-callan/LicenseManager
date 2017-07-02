@@ -1,0 +1,174 @@
+{
+  "system": [
+    {
+      "name": "StartDate",
+      "label": "Start date",
+      "type": "date",
+      "comment": "The date the license become valid.",
+      "default": ""
+    },
+    {
+      "name": "EndDate",
+      "label": "End date",
+      "type": "date",
+      "comment": "The date the license expires.",
+      "default": ""
+    },
+    {
+      "name": "ID",
+      "label": "License ID",
+      "type": "string",
+      "comment": "The ID of the license. Must be unique for the system it is installed on.",
+      "default": ""
+    },
+    {
+      "name": "Description",
+      "label": "Description",
+      "type": "string",
+      "comment": "The description for the license.",
+      "default": ""
+    },
+    {
+      "name": "HostName",
+      "label": "Host names",
+      "type": "string",
+      "comment": "The name of the system the license is for. There may be multiple HostName nodes. If any match, the licence is valid. The value is either '*' for anything, the name of the host 'server1', or a domain name, with matching going right to left. 'infoshare.local' would match  'server1.infoshare.local', but not 'server1.infoshare.local.uk'.",
+      "default": ""
+    },
+    {
+      "name": "FeedODBC",
+      "label": "ODBC feeds",
+      "type": "bool",
+      "comment": "Can an ODBC connection be used in a feed?",
+      "default": "true"
+    },
+    {
+      "name": "MaxProjects",
+      "label": "Maximum number of projects",
+      "type": "int",
+      "comment": "The maximum number of projects in a system.",
+      "default": "2147483647"
+    },
+    {
+      "name": "ManualConnect",
+      "label": "Allow Manual connect",
+      "type": "bool",
+      "comment": "Can the use do manual connects.",
+      "default": "true"
+    },
+    {
+      "name": "ReportODBC",
+      "label": "ODBC reports",
+      "type": "bool",
+      "comment": "Can a report output to an ODBC connection.",
+      "default": "true"
+    },
+    {
+      "name": "CleanScript",
+      "label": "Cleaning scripts",
+      "type": "bool",
+      "comment": "Are scripts allowed during cleaning?",
+      "default": "true"
+    },
+    {
+      "name": "EditScripts",
+      "label": "Edit scripts",
+      "type": "bool",
+      "comment": "Can the user edit python scripts",
+      "default": "true"
+    },
+    {
+      "name": "ReportScript",
+      "label": "Reporting scripts",
+      "type": "bool",
+      "comment": "Can scripts be used in reports?",
+      "default": "true"
+    },
+    {
+      "name": "SystemLevel",
+      "label": "System level",
+      "type": "enum(bronze, silver, gold)",
+      "comment": "The level of the system. bronze, silver, gold.",
+      "default": "gold"
+    },
+    {
+      "name": "LogActions",
+      "label": "Log user actions",
+      "type": "bool",
+      "comment": "Are actions logged to the user log in admin DB?",
+      "default": "true"
+    },
+    {
+      "name": "Workflow",
+      "label": "Enable workflow",
+      "type": "bool",
+      "comment": "Is workflow enabled in the GUI?",
+      "default": "false"
+    },
+    {
+      "name": "Security",
+      "label": "Enable security",
+      "type": "bool",
+      "comment": "Is security configuration enabled in the GUI?",
+      "default": "true"
+    }
+  ],
+  "project": [
+    {
+      "name": "MaxSourceRecords",
+      "label": "Maximum source records",
+      "type": "int",
+      "comment": "The maximum number of source records in a project.",
+      "default": "2147483647"
+    },
+    {
+      "name": "MaxPosMatch",
+      "label": "Maximum possible matches",
+      "type": "int",
+      "comment": "The maximum number of possible match rules in a project.",
+      "default": "2147483647"
+    },
+    {
+      "name": "MaxDataCategories",
+      "label": "Maximum data categories",
+      "type": "int",
+      "comment": "The maximum number of data categories. Includes default categories.",
+      "default": "2147483647"
+    },
+    {
+      "name": "MaxDataFeeds",
+      "label": "Maximum data feeds",
+      "type": "int",
+      "comment": "The maximum number of data feeds in a project.",
+      "default": "2147483647"
+    },
+    {
+      "name": "MaxDatasets",
+      "label": "Maximum datasets",
+      "type": "int",
+      "comment": "The maximum number of data sets in a project.",
+      "default": "2147483647"
+    },
+    {
+      "name": "MaxDataObjects",
+      "label": "Maximum data objects",
+      "type": "int",
+      "comment": "Maximum number of data objects in a project.",
+      "default": "2147483647"
+    },
+    {
+      "name": "MaxReports",
+      "label": "Maximum reports",
+      "type": "int",
+      "comment": "Maximum number of reports in a project.",
+      "default": "2147483647"
+    },
+    {
+      "name": "MaxDefaultReports",
+      "label": "Maximum default reports",
+      "type": "int",
+      "comment": "Maximum number of default reports in a project. This should normally be '8'.",
+      "default": "2147483647"
+    }
+  ]
+}
