@@ -60,7 +60,7 @@ select_license = function (button) {
                     html += "<input type='number' value ='" + row.value + "' min='1' max='2147483647'>"
                 } else if (row.type === "date") {
                     html += "<input type='date' value ='" + row.value + "'>"
-                } else if (row.type.startsWith("enum(")) {
+                } else if (row.type.slice(0, 5) == "enum(") {
                     var values = row.type.slice(5, -1);
                     values = values.split(",");
                     html += "<select>";
