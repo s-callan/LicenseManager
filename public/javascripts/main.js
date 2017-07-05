@@ -44,11 +44,11 @@ select_license = function (button) {
         for (var section in data) {
             var html = "";
             html += "<table><tr><th align=left'>Name</th><th align=left'>Value</th><th></th></tr>";
+
             for (var item in data[section]) {
                 var row = data[section][item];
                 html += "<tr>";
                 html += "<td>" + row.label + "</td>";
-
                 html += "<td>";
                 if (row.type === "bool") {
                     var checked = "";
@@ -60,7 +60,7 @@ select_license = function (button) {
                     html += "<input type='number' value ='" + row.value + "' min='1' max='2147483647'>"
                 } else if (row.type === "date") {
                     html += "<input type='date' value ='" + row.value + "'>"
-                } else if (row.type.slice(0, 5) == "enum(") {
+                } else if (row.type.slice(0, 5) === "enum(") {
                     var values = row.type.slice(5, -1);
                     values = values.split(",");
                     html += "<select>";
@@ -81,6 +81,7 @@ select_license = function (button) {
                 html += "</tr>";
             }
             html += "</table>";
+
             document.getElementById(section).innerHTML = html;
         }
     })
