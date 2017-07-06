@@ -5,6 +5,20 @@ block content
     hr
     h2 Clients
     div(id='clients')
+    div(id="dialog-form" title="Create new user")
+        p( class="validateTips")
+            All form fields are required.
+
+        form
+            fieldset
+                label(for="name")
+                    Name
+                input(type="text" name="name" id="name" value="" class="text ui-widget-content ui-corner-all")
+                label( for="descr")
+                    Description
+                input(type="text" name="descr" id="descr" value="" class="text ui-widget-content ui-corner-all")
+                input(type="submit" tabindex="-1" style="position:absolute; top:-1000px")
+
     hr
     h2 Licenses
     div(id='license')

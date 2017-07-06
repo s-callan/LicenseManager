@@ -48,6 +48,10 @@ hide_license = function () {
     }
 }
 
+create_client = function() {
+
+}
+
 select_license = function (button) {
     var license_id = button.value;
     $.get("/api/licenses/" + license_id, function (data, status) {
