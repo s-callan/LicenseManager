@@ -35,8 +35,18 @@ select_client = function (button) {
             table += '</table>'
         }
         document.getElementById("license").innerHTML = table;
+        hide_license();
     });
 };
+
+hide_license = function () {
+    if (document.getElementById("system")) {
+        document.getElementById("system").innerHTML = "";
+    }
+    if (document.getElementById("project")) {
+        document.getElementById("project").innerHTML = "";
+    }
+}
 
 select_license = function (button) {
     var license_id = button.value;
