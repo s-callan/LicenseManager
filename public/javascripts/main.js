@@ -59,6 +59,7 @@ select_license = function (button) {
             var html = "";
             html += "<table><tr><th align=left'>Name</th><th align=left'>Value</th><th></th></tr>";
 
+            var datepicker = [];
             for (var item in data[section]) {
                 var row = data[section][item];
                 html += "<tr>";
@@ -73,7 +74,8 @@ select_license = function (button) {
                 } else if (row.type === "int") {
                     html += "<input type='number' value ='" + row.value + "' min='1' max='2147483647'>"
                 } else if (row.type === "date") {
-                    html += "<input type='date' value ='" + row.value + "'>"
+                    html += "<input type='date' value ='" + row.value + "' id= 'date_picker_"+row.name + "'>";
+                    datepicker.push(row.name);
                 } else if (row.type.slice(0, 5) === "enum(") {
                     var values = row.type.slice(5, -1);
                     values = values.split(",");
@@ -97,6 +99,10 @@ select_license = function (button) {
             html += "</table>";
 
             document.getElementById(section).innerHTML = html;
+            for(var i = 0; i < datepicker.length; ++i)
+            {
+                $("#date_picker_"+datepicker[i]).datepicker();
+            }
         }
     })
 };
