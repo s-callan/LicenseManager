@@ -46,20 +46,27 @@ hide_license = function () {
     if (document.getElementById("project")) {
         document.getElementById("project").innerHTML = "";
     }
-}
+};
 
 create_client = function() {
 
-}
+};
 
 select_license = function (button) {
     var license_id = button.value;
+
     $.get("/api/licenses/" + license_id, function (data, status) {
+        var all_html = ""
+        var datepicker = [];
+        var section_names = [];
+
         for (var section in data) {
+            section_names.push(section);
+
             var html = "";
+            html += "<div id='license_" + section + "'>";
             html += "<table><tr><th align=left'>Name</th><th align=left'>Value</th><th></th></tr>";
 
-            var datepicker = [];
             for (var item in data[section]) {
                 var row = data[section][item];
                 html += "<tr>";
@@ -74,7 +81,7 @@ select_license = function (button) {
                 } else if (row.type === "int") {
                     html += "<input type='number' value ='" + row.value + "' min='1' max='2147483647'>"
                 } else if (row.type === "date") {
-                    html += "<input type='date' value ='" + row.value + "' id= 'date_picker_"+row.name + "'>";
+                    html += "<input type='date' value ='" + row.value + "' id= 'date_picker_" + row.name + "'>";
                     datepicker.push(row.name);
                 } else if (row.type.slice(0, 5) === "enum(") {
                     var values = row.type.slice(5, -1);
@@ -97,12 +104,21 @@ select_license = function (button) {
                 html += "</tr>";
             }
             html += "</table>";
-
-            document.getElementById(section).innerHTML = html;
-            for(var i = 0; i < datepicker.length; ++i)
-            {
-                $("#date_picker_"+datepicker[i]).datepicker();
-            }
+            html += "</div>"
+            all_html += html;
         }
+        var final_html = "<ul>"
+        for(id in section_names) {
+            final_html += "<li><a href='#license_" + section_names[id] + "'>" + id + "</a></li>"
+        }
+        final_html += "</ul>" + all_html + "</div>"
+
+        document.getElementById("license_details").innerHTML = final_html;
+        for(var i = 0; i < datepicker.length; ++i)
+        {
+            $("#date_picker_"+datepicker[i]).datepicker();
+        }
+        $("#license_details").tabs();
+
     })
 };

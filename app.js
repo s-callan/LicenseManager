@@ -24,7 +24,7 @@ if (!fs.existsSync('mydb.db')) {
         db.run('INSERT INTO client_info (name, description) values(?,?)',
             "Cornwall", "Cornwall is also here");
         db.run("INSERT INTO license_info (client_id, name, description, start_date, end_date) values(?,?,?,?,?)",
-            "c_1", "Devon 1", "A description", "2017/1/1", "2012/12/31")
+            "c_1", "Devon 1", "A description", "2017/1/1", "2012/12/31");
         db.run("INSERT INTO license_info (client_id, name, description, start_date, end_date) values(?,?,?,?,?)",
             "c_1", "Devon 2", "A description", "2017/1/1", "2012/12/31")
     });
