@@ -18,15 +18,15 @@ if (!fs.existsSync('mydb.db')) {
         db.run("CREATE TABLE client_info (client_id integer primary key, name, description)");
         db.run("CREATE TABLE license_info (license_id integer primary key, client_id, name, description, start_date date, end_date date)");
         db.run("CREATE TABLE license_data (license_id, name, value)");
-        db.run('INSERT INTO client_info (name, description) values(?,?)',
-            "Devon", "A sample client");
 
         db.run('INSERT INTO client_info (name, description) values(?,?)',
-            "Cornwall", "Cornwall is also here");
+            "Default", "Default licenses");
         db.run("INSERT INTO license_info (client_id, name, description, start_date, end_date) values(?,?,?,?,?)",
-            "c_1", "Devon 1", "A description", "2017/1/1", "2012/12/31");
+            "c_1", "Gold", "Default gold license", "2017/1/1", "2012/12/31");
         db.run("INSERT INTO license_info (client_id, name, description, start_date, end_date) values(?,?,?,?,?)",
-            "c_1", "Devon 2", "A description", "2017/1/1", "2012/12/31")
+            "c_1", "Silver", "Default silver license", "2017/1/1", "2012/12/31");
+        db.run("INSERT INTO license_info (client_id, name, description, start_date, end_date) values(?,?,?,?,?)",
+            "c_1", "Bronze", "Default bronze license", "2017/1/1", "2012/12/31");
     });
 
     db.close();
