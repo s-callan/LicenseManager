@@ -109,7 +109,7 @@ select_license = function (button) {
         }
         var final_html = "<ul>"
         for(id in section_names) {
-            final_html += "<li><a href='#license_" + section_names[id] + "'>" + id + "</a></li>"
+            final_html += "<li><a href='#license_" + section_names[id] + "'>" +section_names[id] + "</a></li>"
         }
         final_html += "</ul>" + all_html + "</div>"
 
