@@ -58,6 +58,7 @@ select_license = function (button) {
     $.get("/api/licenses/" + license_id, function (data, status) {
         var all_html = ""
         var datepicker = [];
+        var spinners = [];
         var section_names = [];
 
         for (var section in data) {
@@ -79,7 +80,8 @@ select_license = function (button) {
                     }
                     html += "<input type='checkbox'" + checked + ">"
                 } else if (row.type === "int") {
-                    html += "<input type='number' value ='" + row.value + "' min='1' max='2147483647'>"
+                    html += "<input type='number' value ='" + row.value + "' id='spinner_" + row.name + "' min='1' max='2147483647'>"
+                    spinners.push(row.name)
                 } else if (row.type === "date") {
                     html += "<input type='date' value ='" + row.value + "' id= 'date_picker_" + row.name + "'>";
                     datepicker.push(row.name);
@@ -117,6 +119,10 @@ select_license = function (button) {
         for(var i = 0; i < datepicker.length; ++i)
         {
             $("#date_picker_"+datepicker[i]).datepicker();
+        }
+        for(var i = 0; i < spinners.length; ++i)
+        {
+            $("#spinner_"+spinners[i]).spinner();
         }
         $("#license_details").tabs();
 
