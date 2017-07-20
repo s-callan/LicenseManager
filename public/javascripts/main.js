@@ -15,6 +15,7 @@ main = function () {
 
         document.getElementById("clients").innerHTML = table;
     });
+    $("#license_details").tabs();
 };
 
 select_client = function (button) {
@@ -59,13 +60,9 @@ select_license = function (button) {
         var all_html = ""
         var datepicker = [];
         var spinners = [];
-        var section_names = [];
 
         for (var section in data) {
-            section_names.push(section);
-
             var html = "";
-            html += "<div id='license_" + section + "'>";
             html += "<table><tr><th align=left'>Name</th><th align=left'>Value</th><th></th></tr>";
 
             for (var item in data[section]) {
@@ -106,16 +103,9 @@ select_license = function (button) {
                 html += "</tr>";
             }
             html += "</table>";
-            html += "</div>"
-            all_html += html;
+            document.getElementById("license_"+section).innerHTML = html;
         }
-        var final_html = "<ul>"
-        for(id in section_names) {
-            final_html += "<li><a href='#license_" + section_names[id] + "'>" +section_names[id] + "</a></li>"
-        }
-        final_html += "</ul>" + all_html + "</div>"
 
-        document.getElementById("license_details").innerHTML = final_html;
         for(var i = 0; i < datepicker.length; ++i)
         {
             $("#date_picker_"+datepicker[i]).datepicker();
@@ -124,7 +114,5 @@ select_license = function (button) {
         {
             $("#spinner_"+spinners[i]).spinner();
         }
-        $("#license_details").tabs();
-
     })
 };
