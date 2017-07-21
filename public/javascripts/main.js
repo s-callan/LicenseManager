@@ -57,7 +57,6 @@ select_license = function (button) {
     var license_id = button.value;
 
     $.get("/api/licenses/" + license_id, function (data, status) {
-        var all_html = ""
         var datepicker = [];
         var spinners = [];
 
@@ -77,10 +76,10 @@ select_license = function (button) {
                     }
                     html += "<input type='checkbox'" + checked + ">"
                 } else if (row.type === "int") {
-                    html += "<input type='number' value ='" + row.value + "' id='spinner_" + row.name + "' min='1' max='2147483647'>"
+                    html += "<input type='text' value ='" + row.value + "' id='spinner_" + row.name + "' min='1' max='2147483647'>"
                     spinners.push(row.name)
                 } else if (row.type === "date") {
-                    html += "<input type='date' value ='" + row.value + "' id= 'date_picker_" + row.name + "'>";
+                    html += "<input type='text' value ='" + row.value + "' id= 'date_picker_" + row.name + "'>";
                     datepicker.push(row.name);
                 } else if (row.type.slice(0, 5) === "enum(") {
                     var values = row.type.slice(5, -1);
