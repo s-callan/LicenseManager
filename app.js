@@ -11,26 +11,41 @@ var api = require('./routes/api');
 //var users = require('./routes/users');
 var fs = require('fs');
 
-if (!fs.existsSync('mydb.db')) {
-    var db = new sqlite3.Database('mydb.db');
-    db.serialize(function () {
+initialise_database = function () {
 
-        db.run("CREATE TABLE client_info (client_id integer primary key, name, description)");
-        db.run("CREATE TABLE license_info (license_id integer primary key, client_id, name, description, start_date date, end_date date)");
-        db.run("CREATE TABLE license_data (license_id, name, value)");
+    fs.unlinkSync('mydb.db');
+    if (!fs.existsSync('mydb.db')) {
+        var db = new sqlite3.Database('mydb.db');
+        db.serialize(function () {
 
-        db.run('INSERT INTO client_info (name, description) values(?,?)',
-            "Default", "Default licenses");
-        db.run("INSERT INTO license_info (client_id, name, description, start_date, end_date) values(?,?,?,?,?)",
-            "c_1", "Gold", "Default gold license", "2017/1/1", "2012/12/31");
-        db.run("INSERT INTO license_info (client_id, name, description, start_date, end_date) values(?,?,?,?,?)",
-            "c_1", "Silver", "Default silver license", "2017/1/1", "2012/12/31");
-        db.run("INSERT INTO license_info (client_id, name, description, start_date, end_date) values(?,?,?,?,?)",
-            "c_1", "Bronze", "Default bronze license", "2017/1/1", "2012/12/31");
-    });
+            db.run("CREATE TABLE client_info (client_id integer primary key, name, description)");
+            db.run("CREATE TABLE license_info (license_id integer primary key, client_id, name, description, start_date date, end_date date)");
+            db.run("CREATE TABLE license_data (license_id, name, value)");
 
-    db.close();
-}
+            var defaults = JSON.parse(fs.readFileSync('defaults.json', 'utf8'));
+            var client_id = 1;
+            var license_id = 1;
+            for (var client in defaults) {
+                var row = defaults[client];
+                db.run("INSERT INTO client_info (name, description) VALUES(?,?)", row.name, row.description);
+                for (var lic in row.data) {
+                    var data = row.data[lic];
+                    db.run("INSERT INTO license_info (client_id, name, description, start_date, end_date) VALUES(?, ?, ?, ?, ?)",
+                        'c_' + client_id, data.ID, data.Description, "", "");
+                    for (var key in data) {
+                        db.run("INSERT INTO license_data (license_id, name, value) VALUES(?,?,?)",
+                            "l_" + license_id, key, data[key]);
+                    }
+                    license_id++;
+                }
+                client_id++;
+            }
+        });
+
+        db.close();
+    }
+};
+
 
 var app = express();
 
@@ -66,5 +81,7 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+initialise_database();
 
 module.exports = app;
