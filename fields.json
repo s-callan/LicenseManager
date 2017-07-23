@@ -24,15 +24,15 @@
     {
       "name": "Description",
       "label": "Description",
-      "type": "string",
+      "type": "long_string",
       "comment": "The description for the license.",
       "default": ""
     },
     {
       "name": "HostName",
       "label": "Host names",
-      "type": "string",
-      "comment": "The name of the system the license is for. There may be multiple HostName nodes. If any match, the licence is valid. The value is either '*' for anything, the name of the host 'server1', or a domain name, with matching going right to left. 'infoshare.local' would match  'server1.infoshare.local', but not 'server1.infoshare.local.uk'.",
+      "type": "long_string",
+      "comment": "The name of the system the license is for. There may be multiple HostName nodes. If any match, the licence is valid. The value is either * for anything, the name of the host server1, or a domain name, with matching going right to left. infoshare.local would match  server1.infoshare.local, but not server1.infoshare.local.uk.",
       "default": ""
     },
     {
@@ -167,7 +167,7 @@
       "name": "MaxDefaultReports",
       "label": "Maximum default reports",
       "type": "int",
-      "comment": "Maximum number of default reports in a project. This should normally be '8'.",
+      "comment": "Maximum number of default reports in a project. This should normally be 8.",
       "default": "2147483647"
     }
   ]
