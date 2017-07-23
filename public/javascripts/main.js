@@ -20,7 +20,7 @@ main = function () {
 
 select_client = function (button) {
     var client_id = button.value;
-    $.get("/api/licenses/" + client_id, function (data, status) {
+    $.get("/api/licenses/?client=" + client_id, function (data, status) {
         var table = "";
         if (data.length) {
             table = "<table border='1'><tr><th>&nbsp;</th><th>Name</th><th>Description</th><th>Start date</th><th>End date</th></tr>";
@@ -56,7 +56,7 @@ create_client = function() {
 select_license = function (button) {
     var license_id = button.value;
 
-    $.get("/api/licenses/" + license_id, function (data, status) {
+    $.get("/api/licenses/?license=" + license_id, function (data, status) {
         var datepicker = [];
         var spinners = [];
 

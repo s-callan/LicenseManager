@@ -18,23 +18,28 @@ initialise_database = function () {
         var db = new sqlite3.Database('mydb.db');
         db.serialize(function () {
 
-            db.run("CREATE TABLE client_info (client_id integer primary key, name, description)");
+            db.run("CREATE TABLE client_info (client_id integer primary key, name, description, start_date date, end_date date)");
             db.run("CREATE TABLE license_info (license_id integer primary key, client_id, name, description, start_date date, end_date date)");
             db.run("CREATE TABLE license_data (license_id, name, value)");
 
             var defaults = JSON.parse(fs.readFileSync('defaults.json', 'utf8'));
+
+            // Note: We are making assumptions about the allocation of client amd license ID done by SQLite.
+            // I should be reading the allocated ID, but I'm just assuming that they start at 1 and get incremented.
+            // Good enough for this.
             var client_id = 1;
             var license_id = 1;
             for (var client in defaults) {
                 var row = defaults[client];
-                db.run("INSERT INTO client_info (name, description) VALUES(?,?)", row.name, row.description);
+                db.run("INSERT INTO client_info (name, description, start_date, end_date) VALUES(?,?,?,?)",
+                    row.name, row.description, new Date(2010, 0, 1), new Date(2050, 11, 31));
                 for (var lic in row.data) {
                     var data = row.data[lic];
                     db.run("INSERT INTO license_info (client_id, name, description, start_date, end_date) VALUES(?, ?, ?, ?, ?)",
-                        'c_' + client_id, data.ID, data.Description, "", "");
+                        client_id, data.ID, data.Description, "", "");
                     for (var key in data) {
                         db.run("INSERT INTO license_data (license_id, name, value) VALUES(?,?,?)",
-                            "l_" + license_id, key, data[key]);
+                            license_id, key, data[key]);
                     }
                     license_id++;
                 }

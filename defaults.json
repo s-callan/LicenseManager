@@ -82,5 +82,37 @@
         "MaxDefaultReports": "-1"
       }
     ]
+  },
+  {
+    "name": "Devon",
+    "description": "Devon licenses",
+    "data": [
+      {
+        "StartDate": "1/1/2010",
+        "EndDate": "12/31/2010",
+        "ID": "Bronze",
+        "Description": "Devon Bronze",
+        "HostName": "*",
+        "FeedODBC": "false",
+        "MaxProjects": "1",
+        "ManualConnect": "false",
+        "ReportODBC": "false",
+        "CleanScript": "false",
+        "EditScripts": "false",
+        "ReportScript": "false",
+        "SystemLevel": "bronze",
+        "LogActions": "false",
+        "Workflow": "false",
+        "Security": "false",
+        "MaxSourceRecords": "10000",
+        "MaxPosMatch": "1000",
+        "MaxDataCategories": "10",
+        "MaxDataFeeds": "1",
+        "MaxDatasets": "1",
+        "MaxDataObjects": "10",
+        "MaxReports": "10",
+        "MaxDefaultReports": "8"
+      }
+    ]
   }
 ]

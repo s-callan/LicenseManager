@@ -1,5 +1,21 @@
 # LicenseManager API documentation
 
+List all client GET /api/clients/
+
+Create client   PUT /api/client/ + details in  body
+Read client     GET /api/clients/:id
+Update client   PATCH /api/clients/:id
+Delete client   DELETE /api/clients/:id
+
+
+Create license  PUT /api/license/ + details in body
+Read license    GET /api/license/:id
+Update license  PATCH /api/license/:id
+Delete license  DELETE /api/license/:id
+
+
+
+
 ## Clients
 
 ### List all clients
